@@ -1,7 +1,7 @@
 
 # iOS App签名原理
 
-关于iOS app的签名机制，实质上就是RSA。下面我们来看一张图，这张图来源于[WeRead团队的博客](https://wereadteam.github.io/2017/03/13/Signature/)，我重新绘制了这张图，并在博客图片的基础上细化了一些内容。
+关于iOS app的签名机制，实质上就是RSA。下面我们来看一张图，这张图来源于[WeRead团队的博客文章](https://wereadteam.github.io/2017/03/13/Signature/)，我重新绘制了这张图，并在博客图片的基础上细化了一些内容。
 
 ![avatar](https://raw.githubusercontent.com/chenyuecathy/iOS-develop-note/master/pic/iOS%E7%AD%BE%E5%90%8D%E5%8E%9F%E7%90%86.png)
 
@@ -26,11 +26,11 @@
 <br/>有了公钥和密钥，就能进行加密和解密了。
 <br/>**（1）加密要用公钥 (n,e)**  
 假设鲍勃要向爱丽丝发送加密信息m，他就要用爱丽丝的公钥 (n,e) 对m进行加密。这里需要注意，m必须是整数（字符串可以取ascii值或unicode值），且m必须小于n。    
-    所谓"加密"，就是算出下式的c：  
-    me ≡ c (mod n)  
-　　爱丽丝的公钥是 (3233, 17)，鲍勃的m假设是65，那么可以算出下面的等式：  
-　　6517 ≡ 2790 (mod 3233)  
-于是，c等于2790，鲍勃就把2790发给了爱丽丝。  
+&nbsp 所谓"加密"，就是算出下式的c：  
+&nbspm e ≡ c (mod n)  
+&nbsp 爱丽丝的公钥是 (3233, 17)，鲍勃的m假设是65，那么可以算出下面的等式：  
+&nbsp 6517 ≡ 2790 (mod 3233)  
+&nbsp 于是，c等于2790，鲍勃就把2790发给了爱丽丝。  
 
 **（2）解密要用私钥(n,d)**  
 爱丽丝拿到鲍勃发来的2790以后，就用自己的私钥(3233, 2753) 进行解密。可以证明，下面的等式一定成立：  
@@ -43,8 +43,8 @@
 你可能会问，公钥(n,e) 只能加密小于n的整数m，那么如果要加密大于n的整数，该怎么办？有两种解决方法：一种是把长信息分割成若干段短消息，每段分别加密；另一种是先选择一种"对称性加密算法"（比如DES），用这种算法的密钥加密信息，再用RSA公钥加密DES密钥。
 
 
-###参考文章  
-[RSA算法原理(1)](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html)
+### 参考文章  
+[RSA算法原理(1)](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html)  
 [RSA算法原理(2)](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)
 
 
