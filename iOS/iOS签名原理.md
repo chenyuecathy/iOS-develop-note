@@ -1,5 +1,5 @@
 
-#iOS App签名原理    RSA（非对称加密）+ DES（对称加密）
+#iOS App签名原理
 
 关于iOS app的签名机制，实质上就是RSA和DES加密。下面我们来看一张图，这张图来源于[WeRead团队的博客](https://wereadteam.github.io/2017/03/13/Signature/)，我重新绘制了这张图，并在博客图片的基础上细化了一些内容。
 
