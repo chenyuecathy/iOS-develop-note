@@ -1,7 +1,7 @@
 
-#iOS App签名原理
+# iOS App签名原理
 
-关于iOS app的签名机制，实质上就是RSA和DES加密。下面我们来看一张图，这张图来源于[WeRead团队的博客](https://wereadteam.github.io/2017/03/13/Signature/)，我重新绘制了这张图，并在博客图片的基础上细化了一些内容。
+关于iOS app的签名机制，实质上就是RSA。下面我们来看一张图，这张图来源于[WeRead团队的博客](https://wereadteam.github.io/2017/03/13/Signature/)，我重新绘制了这张图，并在博客图片的基础上细化了一些内容。
 
 ![avatar](https://raw.githubusercontent.com/chenyuecathy/iOS-develop-note/master/pic/iOS%E7%AD%BE%E5%90%8D%E5%8E%9F%E7%90%86.png)
 
@@ -21,7 +21,7 @@
 <br/>4. p12：本地私钥，可以导入到其他电脑。
 <br/>5. Provisioning Profile：包含了 证书 / Entitlements 等数据，并由苹果后台私钥签名的数据包。
 
-#加密和解密（非对称RSA）
+# 加密和解密（非对称RSA）
 <http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html>
 <http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html>  
 <br/>有了公钥和密钥，就能进行加密和解密了。
