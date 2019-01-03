@@ -44,7 +44,7 @@
 
 
 ###参考文章  
-[RSA算法原理(1)]（http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html）
-[RSA算法原理(2)]（http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html）
+[RSA算法原理(1)](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html)
+[RSA算法原理(2)](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)
 
 
