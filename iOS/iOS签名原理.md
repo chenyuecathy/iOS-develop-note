@@ -21,9 +21,8 @@
 <br/>4. p12：本地私钥，可以导入到其他电脑。
 <br/>5. Provisioning Profile：包含了 证书 / Entitlements 等数据，并由苹果后台私钥签名的数据包。
 
-# 加密和解密（非对称RSA）
-<http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html>
-<http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html>  
+## 加密和解密（非对称RSA）
+ 
 <br/>有了公钥和密钥，就能进行加密和解密了。
 <br/>**（1）加密要用公钥 (n,e)**  
 假设鲍勃要向爱丽丝发送加密信息m，他就要用爱丽丝的公钥 (n,e) 对m进行加密。这里需要注意，m必须是整数（字符串可以取ascii值或unicode值），且m必须小于n。    
@@ -42,3 +41,10 @@
 至此，"加密--解密"的整个过程全部完成。  
 我们可以看到，如果不知道d，就没有办法从c求出m。而前面已经说过，要知道d就必须分解n，这是极难做到的，所以RSA算法保证了通信安全。  
 你可能会问，公钥(n,e) 只能加密小于n的整数m，那么如果要加密大于n的整数，该怎么办？有两种解决方法：一种是把长信息分割成若干段短消息，每段分别加密；另一种是先选择一种"对称性加密算法"（比如DES），用这种算法的密钥加密信息，再用RSA公钥加密DES密钥。
+
+
+###参考文章  
+[RSA算法原理(1)]（http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html）
+[RSA算法原理(2)]（http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html）
+
+
