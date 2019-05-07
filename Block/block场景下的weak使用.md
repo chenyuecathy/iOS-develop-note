@@ -33,9 +33,7 @@ block 使用 copy 是从 MRC 遗留下来的“传统”。在 MRC 中,方法内
 
 ####2. GCD
 
->dispatch确实产生了self->_queue->block->self循环引用，但queue在事后主动释放了block，破除了循环引用。
-
->在YYCache源码中，ibireme大神在_trimInBackground方法中使用dispatch_async用到了__weak，ibireme 认为self->_queue->block->self构成了循环引用。具体源码如下：
+>在YYCache源码中，ibireme大神在[_trimInBackground](https://github.com/ibireme/YYKit/issues/41)方法中使用dispatch_async用到了__weak，ibireme 认为self->_queue->block->self构成了循环引用。具体源码如下：
 
     - (void)_trimInBackground {
         __weak typeof(self) _self = self;
@@ -99,50 +97,41 @@ NSArray的enumerateObjectsUsingBlock 跟UIViewAnimationWithBlocks同一个道理
     
     - (void)test {
         
-        NSLog(@"1.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));  //1
-        self.blockTest = ^{
-            NSLog(@"self == %@",self);
-        };
-        
-        self.blockTest();
-        
-        NSLog(@"1.block的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self.blockTest))); //1
-        NSLog(@"2.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));   //2
-        
-        [self.blockTest copy];
-        NSLog(@"1.block的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self.blockTest))); //1
-        NSLog(@"3.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));   //2
-        [self.blockTest copy];
-        NSLog(@"4.block的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self.blockTest))); //1
-        NSLog(@"5.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));   //2
-        
-        [self.blockTest copy];
-        NSLog(@"6.block的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self.blockTest))); //1
-        NSLog(@"7.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));   //2
-        
-        
-        [self release];
-        NSLog(@"8.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self))); //1
+    NSLog(@"1.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));
+
+    self.blockTest = ^{
+        NSLog(@"self == %@",self);
+    };
+    
+    
+    self.blockTest();
+    NSLog(@"2.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));
+
+    [self.blockTest copy];
+    NSLog(@"3.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));
+
+    [self.blockTest copy];
+    NSLog(@"4.self的引用计数=%ld",CFGetRetainCount((__bridge CFTypeRef)(self)));
     }
 测试结果如下：  
-![MRC + copy](https://ws3.sinaimg.cn/large/006tNc79ly1g2sjc7gto6j30og06279u.jpg)   
+![MRC + copy](https://ws1.sinaimg.cn/large/006tNc79ly1g2sksnpwuaj30jr02facb.jpg)   
 
 ####条件2：MRC + assign
      @property (nonatomic,assign) GXBlock blockTest;
-![MRC + assign](https://ws4.sinaimg.cn/large/006tNc79ly1g2sjd672xyj30qj05y0y0.jpg) 
+![MRC + assign](https://ws2.sinaimg.cn/large/006tNc79ly1g2sksl3ddaj30ki030q5c.jpg) 
 
 ####条件3：ARC + copy
-![ARC + copy](https://ws1.sinaimg.cn/large/006tNc79ly1g2sjdq1gvaj30nv04vjv4.jpg) 
+![ARC + copy](https://ws4.sinaimg.cn/large/006tNc79ly1g2sksj7w5wj30k502ewgl.jpg) 
 
 ####条件4：ARC + assign
-![ARC + assign](https://ws1.sinaimg.cn/large/006tNc79ly1g2sjefu9q0j313q094tdj.jpg) 
+![ARC + assign](https://ws3.sinaimg.cn/large/006tNc79ly1g2sks1m3nuj30lk02xju3.jpg) 
 
 ###小结：
 1. 拷贝堆上的block ，self 引用计数不会改变。拷贝栈上的block，self的引用计数+1；  
 2. ARC机制下，会自动拷贝栈上的block至堆上，所以手动调用copy时，不会增加self的引用计数；MRC下，每次将栈上的block拷贝至堆后，self引用计数+1；
 3. assign修饰block不会增加引用计数，copy修饰block会在增加引用计数。
 4. ARC下，copy修饰的block中有self时，self引用计数+2；assign修饰的block中有self时，引用计数+1；
-5. MRC下，copy修饰的block中有self时，self引用计数+1；assign修饰的block中有self时，引用计数不变；（正确的）
+5. MRC下，copy修饰的block中有self时，self引用计数+1；assign修饰的block中有self时，引用计数不变；
 6. 使用weakself可以破除循环引用的问题；
 
 
