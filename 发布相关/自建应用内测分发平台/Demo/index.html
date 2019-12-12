@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/font.css">
+<link rel="stylesheet" type="text/css" href="css/cloudmonitor.css">
+<script type="text/javascript" charset="gb2312" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" charset="gb2312" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/scroll.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no">
+<title>石鱼智采</title>
+</head>
+<body>
+<div class="container-fluid topbody">
+  <div class="row top">
+    <div class="col-md-3 col-xs-3 logo"> <img src="img/logo.png" class="img-responsive"/> </div>
+    <div class="col-md-9 col-xs-9">
+      <div class="row logo_message"> <a href="itms-services://?action=download-manifest&url=https://www.geo-compass.com/apk/bhl/bhl.plist" class="title">石鱼智采(iOS)</a>
+        <div>系统:<span>iOS</span></div>
+        <div>版本:<span>1.5.0</span></div>
+        <div>大小:<span>44.5M</span></div>
+        <div>时间:<span>2019/12/12</span></div>
+        <div>开发:<span>国信司南(北京)地理信息技术有限公司</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="row hr_div">
+    <hr/>
+  </div>
+  <div class="row scroll_div">
+    <div class="col-md-12 col-xs-12">
+      <div class="slide_01" id="slide_01">
+        <div class="mod_01"><img src="img/1.png"></div>
+        <div class="mod_01"><img src="img/2.png"></div>
+        <div class="mod_01"><img src="img/3.png"></div>
+        <div class="mod_01"><img src="img/4.png"></div>
+      </div>
+      <div class="dotModule_new">
+        <div id="slide_01_dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row hr_div">
+    <hr/>
+  </div>
+  <div class="row text_div">
+    <div class="col-md-12 col-xs-12">
+      <div class="logo_message">更新
+      
+      </div>
+    </div>
+  </div>
+  <div class="row hr_div">
+    <hr/>
+  </div>
+  <div class="row text_div">
+    <div class="col-md-12 col-xs-12">
+      <div class="logo_message">权限
+        <div><span>获取麦克风</span></div>
+        <div><span>获取位置</span></div>
+        <div><span>调用摄像头</span></div>
+        <div><span>获取相册</span></div>
+        <div><span>访问网络</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bottom">
+    <a href="itms-services://?action=download-manifest&url=https://www.geo-compass.com/apk/bhl/bhl.plist"><div class="hyperlink">点此下载</div></a>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+if(document.getElementById("slide_01")){
+	var slide_01 = new ScrollPic();
+	slide_01.scrollContId   = "slide_01"; //内容容器ID
+	slide_01.dotListId      = "slide_01_dot";//点列表ID
+	slide_01.dotOnClassName = "selected";
+	slide_01.arrLeftId      = "sl_left"; //左箭头ID
+	slide_01.arrRightId     = "sl_right";//右箭头ID
+	slide_01.frameWidth     = 200;
+	slide_01.pageWidth      = 200;
+	slide_01.upright        = false;
+	slide_01.speed          = 10;
+	slide_01.space          = 40; 
+	slide_01.initialize(); //初始化
+}
+</script>
